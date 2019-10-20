@@ -2,15 +2,15 @@
 
 require 'sinatra'
 require 'json'
-require_relative './lib/releases'
+require_relative './lib/tags'
 
 get %r{/(.+)\.(zip|tar\.gz)} do |version, ext|
-  release = Releases.find_release(version)
-  halt :not_found unless release
+  tag = Tags.find(version)
+  halt :not_found unless tag
 
   url = case ext
-        when 'zip' then release['zipball_url']
-        when 'tar.gz' then release['tarball_url']
+        when 'zip' then tag['zipball_url']
+        when 'tar.gz' then tag['tarball_url']
         end
 
   redirect url, 302
