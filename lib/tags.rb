@@ -2,6 +2,14 @@
 
 require_relative './tags/fetcher'
 
+using Module.new {
+  refine Array do
+    def start_with?(other)
+      other.zip(self).all? { |a, b| a == b }
+    end
+  end
+}
+
 class Tags
   def self.find(version)
     new.find(version)
@@ -19,8 +27,7 @@ class Tags
     tags.sort_by { |tag|
       tag['name'].split('.').map(&:to_i)
     }.reverse.find { |tag|
-      # HACK: Prepend "." to prevent "3.4.1" from matching '3.4.10'
-      (tag['name'] + '.').start_with?(version + '.')
+      tag['name'].split('.').start_with?(version.split('.'))
     }
   end
 end
