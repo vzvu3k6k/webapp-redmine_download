@@ -10,12 +10,14 @@ class TestApp < Minitest::Test
   def app
     App.new.tap do |app|
       app.settings.set :tags, Tags.new(
-        tags: [
-          {
-            'name' => '4.0.5',
-            'tarball_url' => 'https://api.github.com/repos/redmine/redmine/tarball/4.0.5'
-          }
-        ]
+        proc {
+          [
+            {
+              'name' => '4.0.5',
+              'tarball_url' => 'https://api.github.com/repos/redmine/redmine/tarball/4.0.5'
+            }
+          ]
+        }
       )
     end
   end

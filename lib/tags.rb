@@ -1,14 +1,18 @@
 # frozen_string_literal: true
 
+require_relative './tags/fetcher'
+
 class Tags
   def self.find(version)
     new.find(version)
   end
 
-  attr_reader :tags
+  def initialize(fetcher = Tags::Fetcher)
+    @fetcher = fetcher
+  end
 
-  def initialize(tags: JSON.parse(File.read(',/tags.json')))
-    @tags = tags
+  def tags
+    @fetcher.call
   end
 
   def find(version)
