@@ -4,4 +4,5 @@ gem 'sinatra'
 
 group :test, :development do
   gem 'minitest'
+  gem 'rack-test'
 end

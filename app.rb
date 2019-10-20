@@ -1,17 +1,23 @@
 # frozen_string_literal: true
 
-require 'sinatra'
+require 'sinatra/base'
 require 'json'
 require_relative './lib/tags'
 
-get %r{/(.+)\.(zip|tar\.gz)} do |version, ext|
-  tag = Tags.find(version)
-  halt :not_found unless tag
+class App < Sinatra::Base
+  configure do
+    set :tags, Tags.new
+  end
 
-  url = case ext
-        when 'zip' then tag['zipball_url']
-        when 'tar.gz' then tag['tarball_url']
-        end
+  get %r{/(.+)\.(zip|tar\.gz)} do |version, ext|
+    tag = settings.tags.find(version)
+    halt 404 unless tag
 
-  redirect url, 302
+    url = case ext
+          when 'zip' then tag['zipball_url']
+          when 'tar.gz' then tag['tarball_url']
+          end
+
+    redirect url, 302
+  end
 end
