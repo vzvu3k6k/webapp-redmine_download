@@ -2,10 +2,10 @@
 
 require 'sinatra'
 require 'json'
-require_relative './lib'
+require_relative './lib/releases'
 
 get %r{/(.+)\.(zip|tar\.gz)} do |version, ext|
-  release = find_release(version, releases)
+  release = Releases.find_release(version)
   halt :not_found unless release
 
   url = case ext
