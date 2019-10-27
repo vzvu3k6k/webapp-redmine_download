@@ -5,8 +5,14 @@ require 'json'
 require_relative './lib/tags'
 
 class App < Sinatra::Base
+  set :markdown, layout_engine: :slim
+
   configure do
     set :tags, Tags.new
+  end
+
+  get '/' do
+    markdown :index
   end
 
   get %r{/(.+)\.(zip|tar\.gz)} do |version, ext|

@@ -1,8 +1,10 @@
 source 'https://rubygems.org'
 
 gem 'activesupport'
+gem 'commonmarker'
 gem 'redis'
 gem 'sinatra'
+gem 'slim'
 
 group :test, :development do
   gem 'minitest'
