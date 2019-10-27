@@ -1,0 +1,9 @@
+{
+  "name": "Redmine Download",
+  "description": "Finds a Redmine release tag by prefix-search and redirects to its GitHub archive",
+  "repository": "https://github.com/vzvu3k6k/redmine-download",
+  "success_url": "/",
+  "addons": [
+    "heroku-redis:free"
+  ]
+}
