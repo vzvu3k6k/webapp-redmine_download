@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'activesupport'
 gem 'commonmarker'
+gem 'puma'
 gem 'redis'
 gem 'sinatra'
 gem 'slim'
