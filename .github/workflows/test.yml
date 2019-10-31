@@ -17,8 +17,12 @@ jobs:
       uses: actions/setup-ruby@v1
       with:
         ruby-version: 2.6.x
+    - uses: actions/cache@preview
+      with:
+        path: vendor/bundle
+        key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
     - name: Build and test with Rake
       run: |
         gem install bundler
-        bundle install --jobs 4 --retry 3 --without production
+        bundle install --path vendor/bundle --jobs 4 --retry 3 --without production
         bundle exec rake
